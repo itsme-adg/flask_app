@@ -1,0 +1,1670 @@
+ * Serving Flask app 'app'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.100.130.76:5000
+[33mPress CTRL+C to quit[0m
+10.100.140.241 - - [30/Jul/2024 15:45:29] "POST /api/login HTTP/1.1" 200 -
+[2024-07-30 15:45:38,587] ERROR in app: Exception on /api/data [GET]
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+MySQLdb.OperationalError: (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "app.py", line 186, in get_data
+    data = query.all()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+sqlalchemy.exc.OperationalError: (MySQLdb.OperationalError) (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+[SQL: SELECT eod_dump.`Date` AS `eod_dump_Date`, eod_dump.`TeamLeader` AS `eod_dump_TeamLeader`, eod_dump.`Gang` AS `eod_dump_Gang`, eod_dump.`Work_Type` AS `eod_dump_Work_Type`, eod_dump.`Item_Mst_ID` AS `eod_dump_Item_Mst_ID`, eod_dump.`Item_Description` AS `eod_dump_Item_Description`, eod_dump.`Activity` AS `eod_dump_Activity`, eod_dump.`WeekNumber` AS `eod_dump_WeekNumber`, eod_dump.`Output_Date_MonthYear` AS `eod_dump_Output_Date_MonthYear`, eod_dump.`Qty` AS `eod_dump_Qty`, eod_dump.`UOM` AS `eod_dump_UOM`, eod_dump.`Rate` AS `eod_dump_Rate`, eod_dump.`Total` AS `eod_dump_Total`, eod_dump.`Area` AS `eod_dump_Area`, eod_dump.`Mst_Item_Rpt_Group1` AS `eod_dump_Mst_Item_Rpt_Group1`, eod_dump.`Project_ID` AS `eod_dump_Project_ID`, eod_dump.`Project_Name` AS `eod_dump_Project_Name`, eod_dump.`Seed` AS `eod_dump_Seed`, eod_dump.`Comment` AS `eod_dump_Comment`, eod_dump.`Planning_KPI1` AS `eod_dump_Planning_KPI1`, eod_dump.`Email_ID` AS `eod_dump_Email_ID`, eod_dump.`User_Name` AS `eod_dump_User_Name`, eod_dump.`AuditLog` AS `eod_dump_AuditLog`, eod_dump.`Work_Period` AS `eod_dump_Work_Period`, eod_dump.`Job_Pack_No` AS `eod_dump_Job_Pack_No`, eod_dump.`Route` AS `eod_dump_Route`, eod_dump.`Work_Category` AS `eod_dump_Work_Category`, eod_dump.`Approved_Status` AS `eod_dump_Approved_Status`, eod_dump.`PMO_Coordinator` AS `eod_dump_PMO_Coordinator`, eod_dump.`QA_remarks` AS `eod_dump_QA_remarks`, eod_dump.`Span_length` AS `eod_dump_Span_length`, eod_dump.`Qty_2` AS `eod_dump_Qty_2`, eod_dump.`Taken_To_Revenue` AS `eod_dump_Taken_To_Revenue` 
+FROM eod_dump]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+10.100.140.241 - - [30/Jul/2024 15:45:38] "[35m[1mGET /api/data HTTP/1.1[0m" 500 -
+10.100.140.241 - - [30/Jul/2024 15:51:24] "POST /api/login HTTP/1.1" 200 -
+[2024-07-30 15:52:39,570] ERROR in app: Exception on /api/data [GET]
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+MySQLdb.OperationalError: (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "app.py", line 186, in get_data
+    data = query.all()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+sqlalchemy.exc.OperationalError: (MySQLdb.OperationalError) (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+[SQL: SELECT eod_dump.`Date` AS `eod_dump_Date`, eod_dump.`TeamLeader` AS `eod_dump_TeamLeader`, eod_dump.`Gang` AS `eod_dump_Gang`, eod_dump.`Work_Type` AS `eod_dump_Work_Type`, eod_dump.`Item_Mst_ID` AS `eod_dump_Item_Mst_ID`, eod_dump.`Item_Description` AS `eod_dump_Item_Description`, eod_dump.`Activity` AS `eod_dump_Activity`, eod_dump.`WeekNumber` AS `eod_dump_WeekNumber`, eod_dump.`Output_Date_MonthYear` AS `eod_dump_Output_Date_MonthYear`, eod_dump.`Qty` AS `eod_dump_Qty`, eod_dump.`UOM` AS `eod_dump_UOM`, eod_dump.`Rate` AS `eod_dump_Rate`, eod_dump.`Total` AS `eod_dump_Total`, eod_dump.`Area` AS `eod_dump_Area`, eod_dump.`Mst_Item_Rpt_Group1` AS `eod_dump_Mst_Item_Rpt_Group1`, eod_dump.`Project_ID` AS `eod_dump_Project_ID`, eod_dump.`Project_Name` AS `eod_dump_Project_Name`, eod_dump.`Seed` AS `eod_dump_Seed`, eod_dump.`Comment` AS `eod_dump_Comment`, eod_dump.`Planning_KPI1` AS `eod_dump_Planning_KPI1`, eod_dump.`Email_ID` AS `eod_dump_Email_ID`, eod_dump.`User_Name` AS `eod_dump_User_Name`, eod_dump.`AuditLog` AS `eod_dump_AuditLog`, eod_dump.`Work_Period` AS `eod_dump_Work_Period`, eod_dump.`Job_Pack_No` AS `eod_dump_Job_Pack_No`, eod_dump.`Route` AS `eod_dump_Route`, eod_dump.`Work_Category` AS `eod_dump_Work_Category`, eod_dump.`Approved_Status` AS `eod_dump_Approved_Status`, eod_dump.`PMO_Coordinator` AS `eod_dump_PMO_Coordinator`, eod_dump.`QA_remarks` AS `eod_dump_QA_remarks`, eod_dump.`Span_length` AS `eod_dump_Span_length`, eod_dump.`Qty_2` AS `eod_dump_Qty_2`, eod_dump.`Taken_To_Revenue` AS `eod_dump_Taken_To_Revenue` 
+FROM eod_dump]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+10.100.140.241 - - [30/Jul/2024 15:52:39] "[35m[1mGET /api/data HTTP/1.1[0m" 500 -
+[2024-07-30 15:54:02,812] ERROR in app: Exception on /api/data [GET]
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+MySQLdb.OperationalError: (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "app.py", line 186, in get_data
+    data = query.all()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+sqlalchemy.exc.OperationalError: (MySQLdb.OperationalError) (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+[SQL: SELECT eod_dump.`Date` AS `eod_dump_Date`, eod_dump.`TeamLeader` AS `eod_dump_TeamLeader`, eod_dump.`Gang` AS `eod_dump_Gang`, eod_dump.`Work_Type` AS `eod_dump_Work_Type`, eod_dump.`Item_Mst_ID` AS `eod_dump_Item_Mst_ID`, eod_dump.`Item_Description` AS `eod_dump_Item_Description`, eod_dump.`Activity` AS `eod_dump_Activity`, eod_dump.`WeekNumber` AS `eod_dump_WeekNumber`, eod_dump.`Output_Date_MonthYear` AS `eod_dump_Output_Date_MonthYear`, eod_dump.`Qty` AS `eod_dump_Qty`, eod_dump.`UOM` AS `eod_dump_UOM`, eod_dump.`Rate` AS `eod_dump_Rate`, eod_dump.`Total` AS `eod_dump_Total`, eod_dump.`Area` AS `eod_dump_Area`, eod_dump.`Mst_Item_Rpt_Group1` AS `eod_dump_Mst_Item_Rpt_Group1`, eod_dump.`Project_ID` AS `eod_dump_Project_ID`, eod_dump.`Project_Name` AS `eod_dump_Project_Name`, eod_dump.`Seed` AS `eod_dump_Seed`, eod_dump.`Comment` AS `eod_dump_Comment`, eod_dump.`Planning_KPI1` AS `eod_dump_Planning_KPI1`, eod_dump.`Email_ID` AS `eod_dump_Email_ID`, eod_dump.`User_Name` AS `eod_dump_User_Name`, eod_dump.`AuditLog` AS `eod_dump_AuditLog`, eod_dump.`Work_Period` AS `eod_dump_Work_Period`, eod_dump.`Job_Pack_No` AS `eod_dump_Job_Pack_No`, eod_dump.`Route` AS `eod_dump_Route`, eod_dump.`Work_Category` AS `eod_dump_Work_Category`, eod_dump.`Approved_Status` AS `eod_dump_Approved_Status`, eod_dump.`PMO_Coordinator` AS `eod_dump_PMO_Coordinator`, eod_dump.`QA_remarks` AS `eod_dump_QA_remarks`, eod_dump.`Span_length` AS `eod_dump_Span_length`, eod_dump.`Qty_2` AS `eod_dump_Qty_2`, eod_dump.`Taken_To_Revenue` AS `eod_dump_Taken_To_Revenue` 
+FROM eod_dump]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+10.100.140.241 - - [30/Jul/2024 15:54:02] "[35m[1mGET /api/data HTTP/1.1[0m" 500 -
+[2024-07-30 15:54:16,813] ERROR in app: Exception on /api/data [GET]
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+MySQLdb.OperationalError: (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "app.py", line 186, in get_data
+    data = query.all()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+sqlalchemy.exc.OperationalError: (MySQLdb.OperationalError) (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+[SQL: SELECT eod_dump.`Date` AS `eod_dump_Date`, eod_dump.`TeamLeader` AS `eod_dump_TeamLeader`, eod_dump.`Gang` AS `eod_dump_Gang`, eod_dump.`Work_Type` AS `eod_dump_Work_Type`, eod_dump.`Item_Mst_ID` AS `eod_dump_Item_Mst_ID`, eod_dump.`Item_Description` AS `eod_dump_Item_Description`, eod_dump.`Activity` AS `eod_dump_Activity`, eod_dump.`WeekNumber` AS `eod_dump_WeekNumber`, eod_dump.`Output_Date_MonthYear` AS `eod_dump_Output_Date_MonthYear`, eod_dump.`Qty` AS `eod_dump_Qty`, eod_dump.`UOM` AS `eod_dump_UOM`, eod_dump.`Rate` AS `eod_dump_Rate`, eod_dump.`Total` AS `eod_dump_Total`, eod_dump.`Area` AS `eod_dump_Area`, eod_dump.`Mst_Item_Rpt_Group1` AS `eod_dump_Mst_Item_Rpt_Group1`, eod_dump.`Project_ID` AS `eod_dump_Project_ID`, eod_dump.`Project_Name` AS `eod_dump_Project_Name`, eod_dump.`Seed` AS `eod_dump_Seed`, eod_dump.`Comment` AS `eod_dump_Comment`, eod_dump.`Planning_KPI1` AS `eod_dump_Planning_KPI1`, eod_dump.`Email_ID` AS `eod_dump_Email_ID`, eod_dump.`User_Name` AS `eod_dump_User_Name`, eod_dump.`AuditLog` AS `eod_dump_AuditLog`, eod_dump.`Work_Period` AS `eod_dump_Work_Period`, eod_dump.`Job_Pack_No` AS `eod_dump_Job_Pack_No`, eod_dump.`Route` AS `eod_dump_Route`, eod_dump.`Work_Category` AS `eod_dump_Work_Category`, eod_dump.`Approved_Status` AS `eod_dump_Approved_Status`, eod_dump.`PMO_Coordinator` AS `eod_dump_PMO_Coordinator`, eod_dump.`QA_remarks` AS `eod_dump_QA_remarks`, eod_dump.`Span_length` AS `eod_dump_Span_length`, eod_dump.`Qty_2` AS `eod_dump_Qty_2`, eod_dump.`Taken_To_Revenue` AS `eod_dump_Taken_To_Revenue` 
+FROM eod_dump]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+10.100.140.241 - - [30/Jul/2024 15:54:16] "[35m[1mGET /api/data HTTP/1.1[0m" 500 -
+10.100.140.241 - - [30/Jul/2024 15:54:23] "[31m[1mPOST /api/data HTTP/1.1[0m" 405 -
+[2024-07-30 15:54:31,107] ERROR in app: Exception on /api/data [GET]
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+MySQLdb.OperationalError: (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "app.py", line 186, in get_data
+    data = query.all()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+sqlalchemy.exc.OperationalError: (MySQLdb.OperationalError) (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+[SQL: SELECT eod_dump.`Date` AS `eod_dump_Date`, eod_dump.`TeamLeader` AS `eod_dump_TeamLeader`, eod_dump.`Gang` AS `eod_dump_Gang`, eod_dump.`Work_Type` AS `eod_dump_Work_Type`, eod_dump.`Item_Mst_ID` AS `eod_dump_Item_Mst_ID`, eod_dump.`Item_Description` AS `eod_dump_Item_Description`, eod_dump.`Activity` AS `eod_dump_Activity`, eod_dump.`WeekNumber` AS `eod_dump_WeekNumber`, eod_dump.`Output_Date_MonthYear` AS `eod_dump_Output_Date_MonthYear`, eod_dump.`Qty` AS `eod_dump_Qty`, eod_dump.`UOM` AS `eod_dump_UOM`, eod_dump.`Rate` AS `eod_dump_Rate`, eod_dump.`Total` AS `eod_dump_Total`, eod_dump.`Area` AS `eod_dump_Area`, eod_dump.`Mst_Item_Rpt_Group1` AS `eod_dump_Mst_Item_Rpt_Group1`, eod_dump.`Project_ID` AS `eod_dump_Project_ID`, eod_dump.`Project_Name` AS `eod_dump_Project_Name`, eod_dump.`Seed` AS `eod_dump_Seed`, eod_dump.`Comment` AS `eod_dump_Comment`, eod_dump.`Planning_KPI1` AS `eod_dump_Planning_KPI1`, eod_dump.`Email_ID` AS `eod_dump_Email_ID`, eod_dump.`User_Name` AS `eod_dump_User_Name`, eod_dump.`AuditLog` AS `eod_dump_AuditLog`, eod_dump.`Work_Period` AS `eod_dump_Work_Period`, eod_dump.`Job_Pack_No` AS `eod_dump_Job_Pack_No`, eod_dump.`Route` AS `eod_dump_Route`, eod_dump.`Work_Category` AS `eod_dump_Work_Category`, eod_dump.`Approved_Status` AS `eod_dump_Approved_Status`, eod_dump.`PMO_Coordinator` AS `eod_dump_PMO_Coordinator`, eod_dump.`QA_remarks` AS `eod_dump_QA_remarks`, eod_dump.`Span_length` AS `eod_dump_Span_length`, eod_dump.`Qty_2` AS `eod_dump_Qty_2`, eod_dump.`Taken_To_Revenue` AS `eod_dump_Taken_To_Revenue` 
+FROM eod_dump]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+10.100.140.241 - - [30/Jul/2024 15:54:31] "[35m[1mGET /api/data HTTP/1.1[0m" 500 -
+[2024-07-30 15:54:53,025] ERROR in app: Exception on /api/data [GET]
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+MySQLdb.OperationalError: (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "app.py", line 186, in get_data
+    data = query.all()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+sqlalchemy.exc.OperationalError: (MySQLdb.OperationalError) (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+[SQL: SELECT eod_dump.`Date` AS `eod_dump_Date`, eod_dump.`TeamLeader` AS `eod_dump_TeamLeader`, eod_dump.`Gang` AS `eod_dump_Gang`, eod_dump.`Work_Type` AS `eod_dump_Work_Type`, eod_dump.`Item_Mst_ID` AS `eod_dump_Item_Mst_ID`, eod_dump.`Item_Description` AS `eod_dump_Item_Description`, eod_dump.`Activity` AS `eod_dump_Activity`, eod_dump.`WeekNumber` AS `eod_dump_WeekNumber`, eod_dump.`Output_Date_MonthYear` AS `eod_dump_Output_Date_MonthYear`, eod_dump.`Qty` AS `eod_dump_Qty`, eod_dump.`UOM` AS `eod_dump_UOM`, eod_dump.`Rate` AS `eod_dump_Rate`, eod_dump.`Total` AS `eod_dump_Total`, eod_dump.`Area` AS `eod_dump_Area`, eod_dump.`Mst_Item_Rpt_Group1` AS `eod_dump_Mst_Item_Rpt_Group1`, eod_dump.`Project_ID` AS `eod_dump_Project_ID`, eod_dump.`Project_Name` AS `eod_dump_Project_Name`, eod_dump.`Seed` AS `eod_dump_Seed`, eod_dump.`Comment` AS `eod_dump_Comment`, eod_dump.`Planning_KPI1` AS `eod_dump_Planning_KPI1`, eod_dump.`Email_ID` AS `eod_dump_Email_ID`, eod_dump.`User_Name` AS `eod_dump_User_Name`, eod_dump.`AuditLog` AS `eod_dump_AuditLog`, eod_dump.`Work_Period` AS `eod_dump_Work_Period`, eod_dump.`Job_Pack_No` AS `eod_dump_Job_Pack_No`, eod_dump.`Route` AS `eod_dump_Route`, eod_dump.`Work_Category` AS `eod_dump_Work_Category`, eod_dump.`Approved_Status` AS `eod_dump_Approved_Status`, eod_dump.`PMO_Coordinator` AS `eod_dump_PMO_Coordinator`, eod_dump.`QA_remarks` AS `eod_dump_QA_remarks`, eod_dump.`Span_length` AS `eod_dump_Span_length`, eod_dump.`Qty_2` AS `eod_dump_Qty_2`, eod_dump.`Taken_To_Revenue` AS `eod_dump_Taken_To_Revenue` 
+FROM eod_dump]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+10.100.140.241 - - [30/Jul/2024 15:54:53] "[35m[1mGET /api/data HTTP/1.1[0m" 500 -
+10.100.140.241 - - [30/Jul/2024 15:55:07] "POST /api/login HTTP/1.1" 200 -
+[2024-07-30 15:55:24,077] ERROR in app: Exception on /api/data [GET]
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+MySQLdb.OperationalError: (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "app.py", line 186, in get_data
+    data = query.all()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+sqlalchemy.exc.OperationalError: (MySQLdb.OperationalError) (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+[SQL: SELECT eod_dump.`Date` AS `eod_dump_Date`, eod_dump.`TeamLeader` AS `eod_dump_TeamLeader`, eod_dump.`Gang` AS `eod_dump_Gang`, eod_dump.`Work_Type` AS `eod_dump_Work_Type`, eod_dump.`Item_Mst_ID` AS `eod_dump_Item_Mst_ID`, eod_dump.`Item_Description` AS `eod_dump_Item_Description`, eod_dump.`Activity` AS `eod_dump_Activity`, eod_dump.`WeekNumber` AS `eod_dump_WeekNumber`, eod_dump.`Output_Date_MonthYear` AS `eod_dump_Output_Date_MonthYear`, eod_dump.`Qty` AS `eod_dump_Qty`, eod_dump.`UOM` AS `eod_dump_UOM`, eod_dump.`Rate` AS `eod_dump_Rate`, eod_dump.`Total` AS `eod_dump_Total`, eod_dump.`Area` AS `eod_dump_Area`, eod_dump.`Mst_Item_Rpt_Group1` AS `eod_dump_Mst_Item_Rpt_Group1`, eod_dump.`Project_ID` AS `eod_dump_Project_ID`, eod_dump.`Project_Name` AS `eod_dump_Project_Name`, eod_dump.`Seed` AS `eod_dump_Seed`, eod_dump.`Comment` AS `eod_dump_Comment`, eod_dump.`Planning_KPI1` AS `eod_dump_Planning_KPI1`, eod_dump.`Email_ID` AS `eod_dump_Email_ID`, eod_dump.`User_Name` AS `eod_dump_User_Name`, eod_dump.`AuditLog` AS `eod_dump_AuditLog`, eod_dump.`Work_Period` AS `eod_dump_Work_Period`, eod_dump.`Job_Pack_No` AS `eod_dump_Job_Pack_No`, eod_dump.`Route` AS `eod_dump_Route`, eod_dump.`Work_Category` AS `eod_dump_Work_Category`, eod_dump.`Approved_Status` AS `eod_dump_Approved_Status`, eod_dump.`PMO_Coordinator` AS `eod_dump_PMO_Coordinator`, eod_dump.`QA_remarks` AS `eod_dump_QA_remarks`, eod_dump.`Span_length` AS `eod_dump_Span_length`, eod_dump.`Qty_2` AS `eod_dump_Qty_2`, eod_dump.`Taken_To_Revenue` AS `eod_dump_Taken_To_Revenue` 
+FROM eod_dump]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+10.100.140.241 - - [30/Jul/2024 15:55:24] "[35m[1mGET /api/data HTTP/1.1[0m" 500 -
+[2024-07-30 15:56:36,370] ERROR in app: Exception on /api/data [GET]
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+MySQLdb.OperationalError: (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "app.py", line 186, in get_data
+    data = query.all()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+sqlalchemy.exc.OperationalError: (MySQLdb.OperationalError) (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+[SQL: SELECT eod_dump.`Date` AS `eod_dump_Date`, eod_dump.`TeamLeader` AS `eod_dump_TeamLeader`, eod_dump.`Gang` AS `eod_dump_Gang`, eod_dump.`Work_Type` AS `eod_dump_Work_Type`, eod_dump.`Item_Mst_ID` AS `eod_dump_Item_Mst_ID`, eod_dump.`Item_Description` AS `eod_dump_Item_Description`, eod_dump.`Activity` AS `eod_dump_Activity`, eod_dump.`WeekNumber` AS `eod_dump_WeekNumber`, eod_dump.`Output_Date_MonthYear` AS `eod_dump_Output_Date_MonthYear`, eod_dump.`Qty` AS `eod_dump_Qty`, eod_dump.`UOM` AS `eod_dump_UOM`, eod_dump.`Rate` AS `eod_dump_Rate`, eod_dump.`Total` AS `eod_dump_Total`, eod_dump.`Area` AS `eod_dump_Area`, eod_dump.`Mst_Item_Rpt_Group1` AS `eod_dump_Mst_Item_Rpt_Group1`, eod_dump.`Project_ID` AS `eod_dump_Project_ID`, eod_dump.`Project_Name` AS `eod_dump_Project_Name`, eod_dump.`Seed` AS `eod_dump_Seed`, eod_dump.`Comment` AS `eod_dump_Comment`, eod_dump.`Planning_KPI1` AS `eod_dump_Planning_KPI1`, eod_dump.`Email_ID` AS `eod_dump_Email_ID`, eod_dump.`User_Name` AS `eod_dump_User_Name`, eod_dump.`AuditLog` AS `eod_dump_AuditLog`, eod_dump.`Work_Period` AS `eod_dump_Work_Period`, eod_dump.`Job_Pack_No` AS `eod_dump_Job_Pack_No`, eod_dump.`Route` AS `eod_dump_Route`, eod_dump.`Work_Category` AS `eod_dump_Work_Category`, eod_dump.`Approved_Status` AS `eod_dump_Approved_Status`, eod_dump.`PMO_Coordinator` AS `eod_dump_PMO_Coordinator`, eod_dump.`QA_remarks` AS `eod_dump_QA_remarks`, eod_dump.`Span_length` AS `eod_dump_Span_length`, eod_dump.`Qty_2` AS `eod_dump_Qty_2`, eod_dump.`Taken_To_Revenue` AS `eod_dump_Taken_To_Revenue` 
+FROM eod_dump]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+10.100.140.241 - - [30/Jul/2024 15:56:36] "[35m[1mGET /api/data HTTP/1.1[0m" 500 -
+[2024-07-30 15:56:40,863] ERROR in app: Exception on /api/data [GET]
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+MySQLdb.OperationalError: (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "app.py", line 186, in get_data
+    data = query.all()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+sqlalchemy.exc.OperationalError: (MySQLdb.OperationalError) (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+[SQL: SELECT eod_dump.`Date` AS `eod_dump_Date`, eod_dump.`TeamLeader` AS `eod_dump_TeamLeader`, eod_dump.`Gang` AS `eod_dump_Gang`, eod_dump.`Work_Type` AS `eod_dump_Work_Type`, eod_dump.`Item_Mst_ID` AS `eod_dump_Item_Mst_ID`, eod_dump.`Item_Description` AS `eod_dump_Item_Description`, eod_dump.`Activity` AS `eod_dump_Activity`, eod_dump.`WeekNumber` AS `eod_dump_WeekNumber`, eod_dump.`Output_Date_MonthYear` AS `eod_dump_Output_Date_MonthYear`, eod_dump.`Qty` AS `eod_dump_Qty`, eod_dump.`UOM` AS `eod_dump_UOM`, eod_dump.`Rate` AS `eod_dump_Rate`, eod_dump.`Total` AS `eod_dump_Total`, eod_dump.`Area` AS `eod_dump_Area`, eod_dump.`Mst_Item_Rpt_Group1` AS `eod_dump_Mst_Item_Rpt_Group1`, eod_dump.`Project_ID` AS `eod_dump_Project_ID`, eod_dump.`Project_Name` AS `eod_dump_Project_Name`, eod_dump.`Seed` AS `eod_dump_Seed`, eod_dump.`Comment` AS `eod_dump_Comment`, eod_dump.`Planning_KPI1` AS `eod_dump_Planning_KPI1`, eod_dump.`Email_ID` AS `eod_dump_Email_ID`, eod_dump.`User_Name` AS `eod_dump_User_Name`, eod_dump.`AuditLog` AS `eod_dump_AuditLog`, eod_dump.`Work_Period` AS `eod_dump_Work_Period`, eod_dump.`Job_Pack_No` AS `eod_dump_Job_Pack_No`, eod_dump.`Route` AS `eod_dump_Route`, eod_dump.`Work_Category` AS `eod_dump_Work_Category`, eod_dump.`Approved_Status` AS `eod_dump_Approved_Status`, eod_dump.`PMO_Coordinator` AS `eod_dump_PMO_Coordinator`, eod_dump.`QA_remarks` AS `eod_dump_QA_remarks`, eod_dump.`Span_length` AS `eod_dump_Span_length`, eod_dump.`Qty_2` AS `eod_dump_Qty_2`, eod_dump.`Taken_To_Revenue` AS `eod_dump_Taken_To_Revenue` 
+FROM eod_dump]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+10.100.140.241 - - [30/Jul/2024 15:56:40] "[35m[1mGET /api/data HTTP/1.1[0m" 500 -
+[2024-07-30 15:56:48,791] ERROR in app: Exception on /api/data [GET]
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+MySQLdb.OperationalError: (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "app.py", line 186, in get_data
+    data = query.all()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+sqlalchemy.exc.OperationalError: (MySQLdb.OperationalError) (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+[SQL: SELECT eod_dump.`Date` AS `eod_dump_Date`, eod_dump.`TeamLeader` AS `eod_dump_TeamLeader`, eod_dump.`Gang` AS `eod_dump_Gang`, eod_dump.`Work_Type` AS `eod_dump_Work_Type`, eod_dump.`Item_Mst_ID` AS `eod_dump_Item_Mst_ID`, eod_dump.`Item_Description` AS `eod_dump_Item_Description`, eod_dump.`Activity` AS `eod_dump_Activity`, eod_dump.`WeekNumber` AS `eod_dump_WeekNumber`, eod_dump.`Output_Date_MonthYear` AS `eod_dump_Output_Date_MonthYear`, eod_dump.`Qty` AS `eod_dump_Qty`, eod_dump.`UOM` AS `eod_dump_UOM`, eod_dump.`Rate` AS `eod_dump_Rate`, eod_dump.`Total` AS `eod_dump_Total`, eod_dump.`Area` AS `eod_dump_Area`, eod_dump.`Mst_Item_Rpt_Group1` AS `eod_dump_Mst_Item_Rpt_Group1`, eod_dump.`Project_ID` AS `eod_dump_Project_ID`, eod_dump.`Project_Name` AS `eod_dump_Project_Name`, eod_dump.`Seed` AS `eod_dump_Seed`, eod_dump.`Comment` AS `eod_dump_Comment`, eod_dump.`Planning_KPI1` AS `eod_dump_Planning_KPI1`, eod_dump.`Email_ID` AS `eod_dump_Email_ID`, eod_dump.`User_Name` AS `eod_dump_User_Name`, eod_dump.`AuditLog` AS `eod_dump_AuditLog`, eod_dump.`Work_Period` AS `eod_dump_Work_Period`, eod_dump.`Job_Pack_No` AS `eod_dump_Job_Pack_No`, eod_dump.`Route` AS `eod_dump_Route`, eod_dump.`Work_Category` AS `eod_dump_Work_Category`, eod_dump.`Approved_Status` AS `eod_dump_Approved_Status`, eod_dump.`PMO_Coordinator` AS `eod_dump_PMO_Coordinator`, eod_dump.`QA_remarks` AS `eod_dump_QA_remarks`, eod_dump.`Span_length` AS `eod_dump_Span_length`, eod_dump.`Qty_2` AS `eod_dump_Qty_2`, eod_dump.`Taken_To_Revenue` AS `eod_dump_Taken_To_Revenue` 
+FROM eod_dump]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+10.100.140.241 - - [30/Jul/2024 15:56:48] "[35m[1mGET /api/data?token=eyJhbGciOiJIUzI1NiJ9.e30.8eSMst5KWd2S3IdWFpcCQ2pniwUWMuPylb2x32UodH4 HTTP/1.1[0m" 500 -
+[2024-07-30 15:57:00,845] ERROR in app: Exception on /api/data [GET]
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+MySQLdb.OperationalError: (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "app.py", line 186, in get_data
+    data = query.all()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+sqlalchemy.exc.OperationalError: (MySQLdb.OperationalError) (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+[SQL: SELECT eod_dump.`Date` AS `eod_dump_Date`, eod_dump.`TeamLeader` AS `eod_dump_TeamLeader`, eod_dump.`Gang` AS `eod_dump_Gang`, eod_dump.`Work_Type` AS `eod_dump_Work_Type`, eod_dump.`Item_Mst_ID` AS `eod_dump_Item_Mst_ID`, eod_dump.`Item_Description` AS `eod_dump_Item_Description`, eod_dump.`Activity` AS `eod_dump_Activity`, eod_dump.`WeekNumber` AS `eod_dump_WeekNumber`, eod_dump.`Output_Date_MonthYear` AS `eod_dump_Output_Date_MonthYear`, eod_dump.`Qty` AS `eod_dump_Qty`, eod_dump.`UOM` AS `eod_dump_UOM`, eod_dump.`Rate` AS `eod_dump_Rate`, eod_dump.`Total` AS `eod_dump_Total`, eod_dump.`Area` AS `eod_dump_Area`, eod_dump.`Mst_Item_Rpt_Group1` AS `eod_dump_Mst_Item_Rpt_Group1`, eod_dump.`Project_ID` AS `eod_dump_Project_ID`, eod_dump.`Project_Name` AS `eod_dump_Project_Name`, eod_dump.`Seed` AS `eod_dump_Seed`, eod_dump.`Comment` AS `eod_dump_Comment`, eod_dump.`Planning_KPI1` AS `eod_dump_Planning_KPI1`, eod_dump.`Email_ID` AS `eod_dump_Email_ID`, eod_dump.`User_Name` AS `eod_dump_User_Name`, eod_dump.`AuditLog` AS `eod_dump_AuditLog`, eod_dump.`Work_Period` AS `eod_dump_Work_Period`, eod_dump.`Job_Pack_No` AS `eod_dump_Job_Pack_No`, eod_dump.`Route` AS `eod_dump_Route`, eod_dump.`Work_Category` AS `eod_dump_Work_Category`, eod_dump.`Approved_Status` AS `eod_dump_Approved_Status`, eod_dump.`PMO_Coordinator` AS `eod_dump_PMO_Coordinator`, eod_dump.`QA_remarks` AS `eod_dump_QA_remarks`, eod_dump.`Span_length` AS `eod_dump_Span_length`, eod_dump.`Qty_2` AS `eod_dump_Qty_2`, eod_dump.`Taken_To_Revenue` AS `eod_dump_Taken_To_Revenue` 
+FROM eod_dump]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+10.100.140.241 - - [30/Jul/2024 15:57:00] "[35m[1mGET /api/data HTTP/1.1[0m" 500 -
+[2024-07-30 15:57:04,839] ERROR in app: Exception on /api/data [GET]
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+MySQLdb.OperationalError: (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "app.py", line 186, in get_data
+    data = query.all()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+sqlalchemy.exc.OperationalError: (MySQLdb.OperationalError) (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+[SQL: SELECT eod_dump.`Date` AS `eod_dump_Date`, eod_dump.`TeamLeader` AS `eod_dump_TeamLeader`, eod_dump.`Gang` AS `eod_dump_Gang`, eod_dump.`Work_Type` AS `eod_dump_Work_Type`, eod_dump.`Item_Mst_ID` AS `eod_dump_Item_Mst_ID`, eod_dump.`Item_Description` AS `eod_dump_Item_Description`, eod_dump.`Activity` AS `eod_dump_Activity`, eod_dump.`WeekNumber` AS `eod_dump_WeekNumber`, eod_dump.`Output_Date_MonthYear` AS `eod_dump_Output_Date_MonthYear`, eod_dump.`Qty` AS `eod_dump_Qty`, eod_dump.`UOM` AS `eod_dump_UOM`, eod_dump.`Rate` AS `eod_dump_Rate`, eod_dump.`Total` AS `eod_dump_Total`, eod_dump.`Area` AS `eod_dump_Area`, eod_dump.`Mst_Item_Rpt_Group1` AS `eod_dump_Mst_Item_Rpt_Group1`, eod_dump.`Project_ID` AS `eod_dump_Project_ID`, eod_dump.`Project_Name` AS `eod_dump_Project_Name`, eod_dump.`Seed` AS `eod_dump_Seed`, eod_dump.`Comment` AS `eod_dump_Comment`, eod_dump.`Planning_KPI1` AS `eod_dump_Planning_KPI1`, eod_dump.`Email_ID` AS `eod_dump_Email_ID`, eod_dump.`User_Name` AS `eod_dump_User_Name`, eod_dump.`AuditLog` AS `eod_dump_AuditLog`, eod_dump.`Work_Period` AS `eod_dump_Work_Period`, eod_dump.`Job_Pack_No` AS `eod_dump_Job_Pack_No`, eod_dump.`Route` AS `eod_dump_Route`, eod_dump.`Work_Category` AS `eod_dump_Work_Category`, eod_dump.`Approved_Status` AS `eod_dump_Approved_Status`, eod_dump.`PMO_Coordinator` AS `eod_dump_PMO_Coordinator`, eod_dump.`QA_remarks` AS `eod_dump_QA_remarks`, eod_dump.`Span_length` AS `eod_dump_Span_length`, eod_dump.`Qty_2` AS `eod_dump_Qty_2`, eod_dump.`Taken_To_Revenue` AS `eod_dump_Taken_To_Revenue` 
+FROM eod_dump]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+10.100.140.241 - - [30/Jul/2024 15:57:04] "[35m[1mGET /api/data HTTP/1.1[0m" 500 -
+[2024-07-30 15:57:09,114] ERROR in app: Exception on /api/data [GET]
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+MySQLdb.OperationalError: (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "app.py", line 186, in get_data
+    data = query.all()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+sqlalchemy.exc.OperationalError: (MySQLdb.OperationalError) (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+[SQL: SELECT eod_dump.`Date` AS `eod_dump_Date`, eod_dump.`TeamLeader` AS `eod_dump_TeamLeader`, eod_dump.`Gang` AS `eod_dump_Gang`, eod_dump.`Work_Type` AS `eod_dump_Work_Type`, eod_dump.`Item_Mst_ID` AS `eod_dump_Item_Mst_ID`, eod_dump.`Item_Description` AS `eod_dump_Item_Description`, eod_dump.`Activity` AS `eod_dump_Activity`, eod_dump.`WeekNumber` AS `eod_dump_WeekNumber`, eod_dump.`Output_Date_MonthYear` AS `eod_dump_Output_Date_MonthYear`, eod_dump.`Qty` AS `eod_dump_Qty`, eod_dump.`UOM` AS `eod_dump_UOM`, eod_dump.`Rate` AS `eod_dump_Rate`, eod_dump.`Total` AS `eod_dump_Total`, eod_dump.`Area` AS `eod_dump_Area`, eod_dump.`Mst_Item_Rpt_Group1` AS `eod_dump_Mst_Item_Rpt_Group1`, eod_dump.`Project_ID` AS `eod_dump_Project_ID`, eod_dump.`Project_Name` AS `eod_dump_Project_Name`, eod_dump.`Seed` AS `eod_dump_Seed`, eod_dump.`Comment` AS `eod_dump_Comment`, eod_dump.`Planning_KPI1` AS `eod_dump_Planning_KPI1`, eod_dump.`Email_ID` AS `eod_dump_Email_ID`, eod_dump.`User_Name` AS `eod_dump_User_Name`, eod_dump.`AuditLog` AS `eod_dump_AuditLog`, eod_dump.`Work_Period` AS `eod_dump_Work_Period`, eod_dump.`Job_Pack_No` AS `eod_dump_Job_Pack_No`, eod_dump.`Route` AS `eod_dump_Route`, eod_dump.`Work_Category` AS `eod_dump_Work_Category`, eod_dump.`Approved_Status` AS `eod_dump_Approved_Status`, eod_dump.`PMO_Coordinator` AS `eod_dump_PMO_Coordinator`, eod_dump.`QA_remarks` AS `eod_dump_QA_remarks`, eod_dump.`Span_length` AS `eod_dump_Span_length`, eod_dump.`Qty_2` AS `eod_dump_Qty_2`, eod_dump.`Taken_To_Revenue` AS `eod_dump_Taken_To_Revenue` 
+FROM eod_dump]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+10.100.140.241 - - [30/Jul/2024 15:57:09] "[35m[1mGET /api/data HTTP/1.1[0m" 500 -
+[2024-07-30 15:57:19,600] ERROR in app: Exception on /api/data [GET]
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+MySQLdb.OperationalError: (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "app.py", line 186, in get_data
+    data = query.all()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+sqlalchemy.exc.OperationalError: (MySQLdb.OperationalError) (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+[SQL: SELECT eod_dump.`Date` AS `eod_dump_Date`, eod_dump.`TeamLeader` AS `eod_dump_TeamLeader`, eod_dump.`Gang` AS `eod_dump_Gang`, eod_dump.`Work_Type` AS `eod_dump_Work_Type`, eod_dump.`Item_Mst_ID` AS `eod_dump_Item_Mst_ID`, eod_dump.`Item_Description` AS `eod_dump_Item_Description`, eod_dump.`Activity` AS `eod_dump_Activity`, eod_dump.`WeekNumber` AS `eod_dump_WeekNumber`, eod_dump.`Output_Date_MonthYear` AS `eod_dump_Output_Date_MonthYear`, eod_dump.`Qty` AS `eod_dump_Qty`, eod_dump.`UOM` AS `eod_dump_UOM`, eod_dump.`Rate` AS `eod_dump_Rate`, eod_dump.`Total` AS `eod_dump_Total`, eod_dump.`Area` AS `eod_dump_Area`, eod_dump.`Mst_Item_Rpt_Group1` AS `eod_dump_Mst_Item_Rpt_Group1`, eod_dump.`Project_ID` AS `eod_dump_Project_ID`, eod_dump.`Project_Name` AS `eod_dump_Project_Name`, eod_dump.`Seed` AS `eod_dump_Seed`, eod_dump.`Comment` AS `eod_dump_Comment`, eod_dump.`Planning_KPI1` AS `eod_dump_Planning_KPI1`, eod_dump.`Email_ID` AS `eod_dump_Email_ID`, eod_dump.`User_Name` AS `eod_dump_User_Name`, eod_dump.`AuditLog` AS `eod_dump_AuditLog`, eod_dump.`Work_Period` AS `eod_dump_Work_Period`, eod_dump.`Job_Pack_No` AS `eod_dump_Job_Pack_No`, eod_dump.`Route` AS `eod_dump_Route`, eod_dump.`Work_Category` AS `eod_dump_Work_Category`, eod_dump.`Approved_Status` AS `eod_dump_Approved_Status`, eod_dump.`PMO_Coordinator` AS `eod_dump_PMO_Coordinator`, eod_dump.`QA_remarks` AS `eod_dump_QA_remarks`, eod_dump.`Span_length` AS `eod_dump_Span_length`, eod_dump.`Qty_2` AS `eod_dump_Qty_2`, eod_dump.`Taken_To_Revenue` AS `eod_dump_Taken_To_Revenue` 
+FROM eod_dump]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+10.100.140.241 - - [30/Jul/2024 15:57:19] "[35m[1mGET /api/data HTTP/1.1[0m" 500 -
+10.100.140.241 - - [30/Jul/2024 15:57:22] "POST /api/login HTTP/1.1" 200 -
+[2024-07-30 15:57:36,368] ERROR in app: Exception on /api/data [GET]
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+MySQLdb.OperationalError: (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "app.py", line 186, in get_data
+    data = query.all()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+sqlalchemy.exc.OperationalError: (MySQLdb.OperationalError) (1054, "Unknown column 'eod_dump.Qty_2' in 'field list'")
+[SQL: SELECT eod_dump.`Date` AS `eod_dump_Date`, eod_dump.`TeamLeader` AS `eod_dump_TeamLeader`, eod_dump.`Gang` AS `eod_dump_Gang`, eod_dump.`Work_Type` AS `eod_dump_Work_Type`, eod_dump.`Item_Mst_ID` AS `eod_dump_Item_Mst_ID`, eod_dump.`Item_Description` AS `eod_dump_Item_Description`, eod_dump.`Activity` AS `eod_dump_Activity`, eod_dump.`WeekNumber` AS `eod_dump_WeekNumber`, eod_dump.`Output_Date_MonthYear` AS `eod_dump_Output_Date_MonthYear`, eod_dump.`Qty` AS `eod_dump_Qty`, eod_dump.`UOM` AS `eod_dump_UOM`, eod_dump.`Rate` AS `eod_dump_Rate`, eod_dump.`Total` AS `eod_dump_Total`, eod_dump.`Area` AS `eod_dump_Area`, eod_dump.`Mst_Item_Rpt_Group1` AS `eod_dump_Mst_Item_Rpt_Group1`, eod_dump.`Project_ID` AS `eod_dump_Project_ID`, eod_dump.`Project_Name` AS `eod_dump_Project_Name`, eod_dump.`Seed` AS `eod_dump_Seed`, eod_dump.`Comment` AS `eod_dump_Comment`, eod_dump.`Planning_KPI1` AS `eod_dump_Planning_KPI1`, eod_dump.`Email_ID` AS `eod_dump_Email_ID`, eod_dump.`User_Name` AS `eod_dump_User_Name`, eod_dump.`AuditLog` AS `eod_dump_AuditLog`, eod_dump.`Work_Period` AS `eod_dump_Work_Period`, eod_dump.`Job_Pack_No` AS `eod_dump_Job_Pack_No`, eod_dump.`Route` AS `eod_dump_Route`, eod_dump.`Work_Category` AS `eod_dump_Work_Category`, eod_dump.`Approved_Status` AS `eod_dump_Approved_Status`, eod_dump.`PMO_Coordinator` AS `eod_dump_PMO_Coordinator`, eod_dump.`QA_remarks` AS `eod_dump_QA_remarks`, eod_dump.`Span_length` AS `eod_dump_Span_length`, eod_dump.`Qty_2` AS `eod_dump_Qty_2`, eod_dump.`Taken_To_Revenue` AS `eod_dump_Taken_To_Revenue` 
+FROM eod_dump]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+10.100.140.241 - - [30/Jul/2024 15:57:36] "[35m[1mGET /api/data HTTP/1.1[0m" 500 -
+ * Serving Flask app 'app'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.100.130.76:5000
+[33mPress CTRL+C to quit[0m
+10.100.140.241 - - [30/Jul/2024 16:46:37] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [30/Jul/2024 16:48:56] "OPTIONS /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [30/Jul/2024 16:48:57] "POST /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [30/Jul/2024 17:35:14] "POST /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [30/Jul/2024 17:35:18] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 11:45:03] "OPTIONS /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 11:45:03] "POST /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 11:45:36] "OPTIONS /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 11:45:37] "POST /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 12:27:14] "OPTIONS /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 12:27:14] "POST /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 12:27:44] "OPTIONS /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 12:27:45] "POST /api/login HTTP/1.1" 200 -
+
+10.100.140.241 - - [31/Jul/2024 12:36:42] "[33mPOST /api/add_user_revenues HTTP/1.1[0m" 404 -
+10.100.140.241 - - [31/Jul/2024 12:37:00] "[33mPOST /api/add_user_revenues HTTP/1.1[0m" 404 -
+10.100.140.241 - - [31/Jul/2024 12:38:33] "[33mPOST /api/add_user_revenues HTTP/1.1[0m" 404 -
+10.100.140.241 - - [31/Jul/2024 13:52:20] "[33mGET /api/calculate_cost HTTP/1.1[0m" 404 -
+10.100.140.241 - - [31/Jul/2024 14:44:44] "GET /api/data?TeamLeader=JORDAN%20NORTON HTTP/1.1" 200 -
+ * Serving Flask app 'app2'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.100.130.76:5000
+[33mPress CTRL+C to quit[0m
+10.100.140.241 - - [31/Jul/2024 15:07:09] "OPTIONS /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 15:07:09] "POST /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 15:08:02] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 15:44:56] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 15:58:20] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 15:58:20] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:07:49] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:08:07] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:08:08] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:09:11] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:09:11] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:10:45] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:13:05] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:15:50] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:16:00] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:16:00] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:16:29] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:16:29] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:23:29] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:26:14] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:26:18] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:26:19] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:28:25] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:28:26] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:28:37] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:28:40] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:28:41] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:30:24] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:32:13] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:32:14] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:34:06] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:34:15] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:34:15] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:40:55] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:41:01] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:41:01] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:41:33] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:45:48] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:45:59] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:45:59] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:47:36] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:47:55] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:57:46] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:57:59] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 16:57:59] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:00:41] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:00:50] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:00:56] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:00:56] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:03:00] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:04:22] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:05:45] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:05:54] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:05:54] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:08:03] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:08:06] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:08:06] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:08:28] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:08:59] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:09:02] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:09:02] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:09:21] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:10:00] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:10:04] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:10:08] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:10:11] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:10:11] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:12:03] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:12:11] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:12:24] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:12:27] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:12:32] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:12:32] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:13:05] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:13:17] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:13:27] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:13:27] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:18:10] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:18:51] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:19:10] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:19:43] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:24:09] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:24:26] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:24:29] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:24:29] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:27:19] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:27:19] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:30:46] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:30:46] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:31:27] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:31:31] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:31:31] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:32:06] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:32:06] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:37:04] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:37:09] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:37:09] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:42:00] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:42:11] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:42:11] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:42:47] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:42:56] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:43:07] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:43:38] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:43:50] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:44:02] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:44:05] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:44:05] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:44:21] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:44:39] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:44:42] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:44:42] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:44:50] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:44:53] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:44:53] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:45:04] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:45:07] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:45:07] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:51:45] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [31/Jul/2024 17:51:45] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 10:38:16] "OPTIONS /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 10:38:17] "POST /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 10:38:17] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 10:38:17] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 10:43:51] "OPTIONS /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 10:43:51] "POST /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 10:43:51] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 10:43:51] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 11:12:27] "POST /api/calculate_cost HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:02:25] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:03:02] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:04:18] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:05:40] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:12:49] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:20:54] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:20:54] "GET /api/data HTTP/1.1" 200 -
+ * Serving Flask app 'app2'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.100.130.76:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 250-402-423
+10.100.140.241 - - [01/Aug/2024 12:21:38] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:23:14] "GET /api/data?date>01-01-24 HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:24:08] "GET /api/data?date>01-04-24 HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:25:01] "GET /api/data?date>01-04-24 HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:25:18] "GET /api/data?date=01-04-24 HTTP/1.1" 200 -
+ * Detected change in '/home/administrator/flask/app2.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 250-402-423
+10.100.140.241 - - [01/Aug/2024 12:25:55] "GET /api/data?date=01-04-24 HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:26:07] "GET /api/data?date>01-04-24 HTTP/1.1" 200 -
+ * Detected change in '/home/administrator/flask/app2.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 250-402-423
+10.100.140.241 - - [01/Aug/2024 12:28:38] "GET /api/data?limit=100&page=2 HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:29:55] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:29:55] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:30:26] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:30:26] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:30:55] "GET /api/data?limit=100&page=2 HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:31:49] "GET /api/data?limit=100&page=2 HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:31:49] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+10.100.140.241 - - [01/Aug/2024 12:32:00] "GET /api/data?limit=100&page=2 HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:37:59] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:37:59] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:39:39] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:39:40] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:40:06] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:40:06] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:45:53] "GET /api/data?limit=100&page=2 HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:46:32] "GET /api/data?limit=100&page=2 HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:47:06] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:52:08] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 12:57:13] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:00:03] "GET /api/data?date=20-03-24 HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:00:14] "GET /api/data?Date=20-03-24 HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:03:26] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:03:46] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:03:46] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:05:32] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:05:39] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:05:39] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:08:11] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:14:08] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:14:31] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:14:31] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:18:14] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:18:14] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:23:38] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:25:37] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:26:37] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:27:20] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:34:00] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:34:00] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:35:00] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:35:04] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:35:04] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:38:33] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:42:38] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:42:38] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:48:26] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:48:40] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:51:25] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:53:36] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:54:09] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:54:16] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:54:30] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:55:13] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:55:35] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:55:52] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:56:01] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:56:06] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:56:41] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:56:41] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:56:56] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 13:56:56] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 14:03:27] "OPTIONS /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 14:03:27] "POST /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 14:03:27] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [01/Aug/2024 14:03:27] "GET /api/data HTTP/1.1" 200 -
+10.100.140.241 - - [02/Aug/2024 12:31:44] "GET /api/data?limit=100&page=2 HTTP/1.1" 200 -
+ * Detected change in '/home/administrator/flask/app2.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 250-402-423
+ * Detected change in '/home/administrator/flask/app2.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 250-402-423
+ * Detected change in '/home/administrator/flask/app2.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 250-402-423
+ * Detected change in '/home/administrator/flask/app2.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 250-402-423
+ * Detected change in '/home/administrator/flask/app2.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 250-402-423
+ * Serving Flask app 'app2'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.100.130.76:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 250-402-423
+10.100.140.241 - - [02/Aug/2024 15:58:34] "POST /api/forgot_password HTTP/1.1" 200 -
+10.100.140.241 - - [05/Aug/2024 11:32:09] "OPTIONS /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [05/Aug/2024 11:32:09] "POST /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [05/Aug/2024 11:32:09] "[31m[1mGET /api/data HTTP/1.1[0m" 401 -
+10.100.140.241 - - [05/Aug/2024 11:32:09] "[31m[1mGET /api/data HTTP/1.1[0m" 401 -
+10.100.140.241 - - [05/Aug/2024 11:32:57] "OPTIONS /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [05/Aug/2024 11:32:57] "POST /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [05/Aug/2024 11:32:58] "[31m[1mGET /api/data HTTP/1.1[0m" 401 -
+10.100.140.241 - - [05/Aug/2024 11:32:58] "[31m[1mGET /api/data HTTP/1.1[0m" 401 -
+10.100.140.241 - - [05/Aug/2024 11:43:28] "POST /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [05/Aug/2024 11:43:54] "[31m[1mGET /api/data?Date=20-03-24 HTTP/1.1[0m" 422 -
+10.100.140.241 - - [05/Aug/2024 11:43:59] "[31m[1mGET /api/data?limit=100&page=2 HTTP/1.1[0m" 401 -
+10.100.140.241 - - [05/Aug/2024 11:44:16] "POST /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [05/Aug/2024 11:44:27] "[31m[1mGET /api/data HTTP/1.1[0m" 422 -
+10.100.140.241 - - [05/Aug/2024 11:44:41] "[31m[1mGET /api/data?limit=100&page=2 HTTP/1.1[0m" 401 -
+10.100.140.241 - - [05/Aug/2024 11:45:03] "GET /api/data?limit=100&page=2 HTTP/1.1" 200 -
+10.100.140.241 - - [05/Aug/2024 11:45:33] "POST /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [05/Aug/2024 11:45:59] "GET /api/data?limit=100&page=2 HTTP/1.1" 200 -
+10.100.140.241 - - [05/Aug/2024 11:50:52] "POST /api/get_revenue HTTP/1.1" 200 -
+10.100.140.241 - - [05/Aug/2024 11:57:28] "[31m[1mPOST /api/calculate_cost HTTP/1.1[0m" 403 -
+10.100.140.241 - - [05/Aug/2024 11:57:42] "POST /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [05/Aug/2024 11:57:58] "[31m[1mPOST /api/calculate_cost HTTP/1.1[0m" 403 -
+10.100.140.241 - - [05/Aug/2024 11:58:09] "[31m[1mPOST /api/calculate_cost HTTP/1.1[0m" 401 -
+10.100.140.241 - - [05/Aug/2024 11:58:53] "POST /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [05/Aug/2024 11:59:08] "POST /api/calculate_cost HTTP/1.1" 200 -
+10.100.140.241 - - [05/Aug/2024 12:58:17] "POST /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [05/Aug/2024 12:59:13] "GET /api/data HTTP/1.1" 200 -
+/home/administrator/flask/app2.py:493: LegacyAPIWarning: The Query.get() method is considered legacy as of the 1.x series of SQLAlchemy and becomes a legacy construct in 2.0. The method is now available as Session.get() (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+  eod_item = EODDump.query.get(item['seed'])
+10.100.140.241 - - [05/Aug/2024 13:06:42] "[35m[1mPOST /api/update_revenue_status HTTP/1.1[0m" 500 -
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1498, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1476, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_jwt_extended/view_decorators.py", line 170, in decorator
+    return current_app.ensure_sync(fn)(*args, **kwargs)
+  File "/home/administrator/flask/app2.py", line 213, in decorator
+    return fn(*args, **kwargs)
+  File "/home/administrator/flask/app2.py", line 496, in update_revenue_status
+    eod_item.Taken_To_Revenue_Date = datetime.UTC()  # Update the date
+AttributeError: type object 'datetime.datetime' has no attribute 'UTC'
+10.100.140.241 - - [05/Aug/2024 13:07:00] "[35m[1mPOST /api/update_revenue_status HTTP/1.1[0m" 500 -
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1498, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1476, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_jwt_extended/view_decorators.py", line 170, in decorator
+    return current_app.ensure_sync(fn)(*args, **kwargs)
+  File "/home/administrator/flask/app2.py", line 213, in decorator
+    return fn(*args, **kwargs)
+  File "/home/administrator/flask/app2.py", line 496, in update_revenue_status
+    eod_item.Taken_To_Revenue_Date = datetime.UTC()  # Update the date
+AttributeError: type object 'datetime.datetime' has no attribute 'UTC'
+10.100.140.241 - - [05/Aug/2024 13:08:37] "[31m[1mPOST /api/get_revenue HTTP/1.1[0m" 401 -
+10.100.140.241 - - [05/Aug/2024 13:08:46] "POST /api/login HTTP/1.1" 200 -
+10.100.140.241 - - [05/Aug/2024 13:10:10] "[35m[1mPOST /api/update_revenue_status HTTP/1.1[0m" 500 -
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1498, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1476, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_jwt_extended/view_decorators.py", line 170, in decorator
+    return current_app.ensure_sync(fn)(*args, **kwargs)
+  File "/home/administrator/flask/app2.py", line 213, in decorator
+    return fn(*args, **kwargs)
+  File "/home/administrator/flask/app2.py", line 496, in update_revenue_status
+    eod_item.Taken_To_Revenue_Date = datetime.UTC()  # Update the date
+AttributeError: type object 'datetime.datetime' has no attribute 'UTC'
+10.100.140.241 - - [05/Aug/2024 13:12:14] "[35m[1mPOST /api/update_revenue_status HTTP/1.1[0m" 500 -
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1498, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1476, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_jwt_extended/view_decorators.py", line 170, in decorator
+    return current_app.ensure_sync(fn)(*args, **kwargs)
+  File "/home/administrator/flask/app2.py", line 213, in decorator
+    return fn(*args, **kwargs)
+  File "/home/administrator/flask/app2.py", line 496, in update_revenue_status
+    eod_item.Taken_To_Revenue_Date = datetime.UTC()  # Update the date
+AttributeError: type object 'datetime.datetime' has no attribute 'UTC'
+ * Detected change in '/home/administrator/flask/app.py', reloading
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyMjU5NDUxMSwianRpIjoiMTc5ZDc5MWYtMjExYy00NDZiLTg3ZWMtYTVkOWYxMWZlNTI3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImFkaXR5YS5ndXB0YTFAc3RsLnRlY2giLCJuYmYiOjE3MjI1OTQ1MTEsImNzcmYiOiIxMmMwNDgwNy0zZTljLTQ1NDAtOGY2NC0wODU0YTIwNWJiODQiLCJleHAiOjE3MjI1OTgxMTF9.6PiBVcBVr8xfAzIm8C5AmUfstrjQZwYLjzBsUDF3iaw
+Email sent successfully
+<User 4>
+Received data: {'Seeds': [121822, 1, 2, 4]}
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 250-402-423
+/home/administrator/flask/app2.py:493: LegacyAPIWarning: The Query.get() method is considered legacy as of the 1.x series of SQLAlchemy and becomes a legacy construct in 2.0. The method is now available as Session.get() (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+  eod_item = EODDump.query.get(item['seed'])
+10.100.140.241 - - [05/Aug/2024 13:13:00] "[35m[1mPOST /api/update_revenue_status HTTP/1.1[0m" 500 -
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1498, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1476, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_jwt_extended/view_decorators.py", line 170, in decorator
+    return current_app.ensure_sync(fn)(*args, **kwargs)
+  File "/home/administrator/flask/app2.py", line 213, in decorator
+    return fn(*args, **kwargs)
+  File "/home/administrator/flask/app2.py", line 496, in update_revenue_status
+    eod_item.Taken_To_Revenue_Date = datetime.UTC()  # Update the date
+AttributeError: type object 'datetime.datetime' has no attribute 'UTC'
+ * Detected change in '/home/administrator/flask/app2.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 250-402-423
+ * Detected change in '/home/administrator/flask/app2.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 250-402-423
+/home/administrator/flask/app2.py:493: LegacyAPIWarning: The Query.get() method is considered legacy as of the 1.x series of SQLAlchemy and becomes a legacy construct in 2.0. The method is now available as Session.get() (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+  eod_item = EODDump.query.get(item['seed'])
+10.100.140.241 - - [05/Aug/2024 13:14:16] "[35m[1mPOST /api/update_revenue_status HTTP/1.1[0m" 500 -
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1815, in _execute_context
+    context = constructor(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 1404, in _init_compiled
+    self._process_execute_defaults()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 2339, in _process_execute_defaults
+    param[param_key] = arg(self)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/sql/schema.py", line 3599, in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+TypeError: function missing required argument 'year' (pos 1)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1498, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1476, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_jwt_extended/view_decorators.py", line 170, in decorator
+    return current_app.ensure_sync(fn)(*args, **kwargs)
+  File "/home/administrator/flask/app2.py", line 213, in decorator
+    return fn(*args, **kwargs)
+  File "/home/administrator/flask/app2.py", line 500, in update_revenue_status
+    db.session.commit()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/scoping.py", line 597, in commit
+    return self._proxied.commit()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2017, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1302, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1277, in _prepare_impl
+    self.session.flush()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 4341, in flush
+    self._flush(objects)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 4477, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 4437, in _flush
+    flush_context.execute()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1821, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1815, in _execute_context
+    context = constructor(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 1404, in _init_compiled
+    self._process_execute_defaults()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 2339, in _process_execute_defaults
+    param[param_key] = arg(self)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/sql/schema.py", line 3599, in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+sqlalchemy.exc.StatementError: (builtins.TypeError) function missing required argument 'year' (pos 1)
+[SQL: INSERT INTO activity_log (user_id, action, timestamp) VALUES (%s, %s, %s)]
+[parameters: [{'user_id': 1, 'action': 'Updated Taken_To_Revenue for seed 121822 to True'}]]
+ * Detected change in '/home/administrator/flask/app2.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 250-402-423
+/home/administrator/flask/app2.py:493: LegacyAPIWarning: The Query.get() method is considered legacy as of the 1.x series of SQLAlchemy and becomes a legacy construct in 2.0. The method is now available as Session.get() (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+  eod_item = EODDump.query.get(item['seed'])
+10.100.140.241 - - [05/Aug/2024 13:14:38] "[35m[1mPOST /api/update_revenue_status HTTP/1.1[0m" 500 -
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1815, in _execute_context
+    context = constructor(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 1404, in _init_compiled
+    self._process_execute_defaults()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 2339, in _process_execute_defaults
+    param[param_key] = arg(self)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/sql/schema.py", line 3599, in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+TypeError: function missing required argument 'year' (pos 1)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1498, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1476, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/flask_jwt_extended/view_decorators.py", line 170, in decorator
+    return current_app.ensure_sync(fn)(*args, **kwargs)
+  File "/home/administrator/flask/app2.py", line 213, in decorator
+    return fn(*args, **kwargs)
+  File "/home/administrator/flask/app2.py", line 500, in update_revenue_status
+    db.session.commit()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/scoping.py", line 597, in commit
+    return self._proxied.commit()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2017, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1302, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1277, in _prepare_impl
+    self.session.flush()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 4341, in flush
+    self._flush(objects)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 4477, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 4437, in _flush
+    flush_context.execute()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1821, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1815, in _execute_context
+    context = constructor(
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 1404, in _init_compiled
+    self._process_execute_defaults()
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 2339, in _process_execute_defaults
+    param[param_key] = arg(self)
+  File "/home/administrator/flask/myenv/lib/python3.8/site-packages/sqlalchemy/sql/schema.py", line 3599, in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+sqlalchemy.exc.StatementError: (builtins.TypeError) function missing required argument 'year' (pos 1)
+[SQL: INSERT INTO activity_log (user_id, action, timestamp) VALUES (%s, %s, %s)]
+[parameters: [{'user_id': 1, 'action': 'Updated Taken_To_Revenue for seed 121822 to True'}]]
+ * Detected change in '/home/administrator/flask/app2.py', reloading
+ * Restarting with stat
+  File "/home/administrator/flask/app2.py", line 91
+    timestamp = db.Column(db.DateTime., default=datetime)
+                                      ^
+SyntaxError: invalid syntax
+ * Serving Flask app 'app2'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.100.130.76:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 250-402-423
+/home/administrator/flask/app2.py:493: LegacyAPIWarning: The Query.get() method is considered legacy as of the 1.x series of SQLAlchemy and becomes a legacy construct in 2.0. The method is now available as Session.get() (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+  eod_item = EODDump.query.get(item['seed'])
+10.100.140.241 - - [05/Aug/2024 13:26:36] "POST /api/update_revenue_status HTTP/1.1" 200 -
