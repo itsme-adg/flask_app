@@ -4489,3 +4489,9 @@ AssertionError: View function mapping is overwriting an existing endpoint functi
 10.100.140.241 - - [07/Aug/2024 17:32:49] "GET /api/data/revenue?Date>=23-08-22%20&&%20Date<=30-08-22%20&&%20Approved_Status="Approved" HTTP/1.1" 200 -
 10.100.140.241 - - [07/Aug/2024 17:33:00] "GET /api/data/revenue?Date>=23-08-22%20&&%20Date<=30-08-22%20&&%20Approved_Status=="Approved" HTTP/1.1" 200 -
 10.100.140.241 - - [07/Aug/2024 17:33:29] "GET /api/data/revenue?Approved_Status=="Approved" HTTP/1.1" 200 -
+10.100.140.241 - - [07/Aug/2024 17:33:48] "GET /api/data/revenue?Approved_Status=Approved HTTP/1.1" 200 -
+10.100.140.241 - - [07/Aug/2024 17:34:25] "GET /api/data/revenue?Date>=23-08-22%20&&%20Date<=30-08-22%20&&%20Approved_Status=Approved HTTP/1.1" 200 -
+10.100.140.241 - - [07/Aug/2024 17:34:43] "GET /api/data/revenue?Date>=23-08-22%20&&%20Date<=30-08-22%20&&%20Approved_Status!=0 HTTP/1.1" 200 -
+10.100.140.241 - - [07/Aug/2024 17:35:45] "GET /api/data/revenue?Date>=23-08-22%20&&%20Date<=30-08-22%20&&%20Approved_Status=Risk HTTP/1.1" 200 -
+10.100.140.241 - - [07/Aug/2024 17:35:54] "GET /api/data/revenue?Date>=23-08-22%20&&%20Date<=30-08-22%20&&%20Approved_Status=Rejected HTTP/1.1" 200 -
+10.100.140.241 - - [07/Aug/2024 17:36:11] "GET /api/data/revenue?Approved_Status=Rejected HTTP/1.1" 200 -
