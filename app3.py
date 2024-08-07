@@ -15,10 +15,12 @@ from sqlalchemy import create_engine
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from sqlalchemy.orm import relationship, foreign, remote
+from sqlalchemy import MetaData, Table, select
+
 
 app = Flask(__name__)
 
-# CORS(app, resources={r"/api/*": {"origins": "0.0.0.0:3001"}})
 CORS(app)
 
 db_user = os.getenv('DB_USER')
@@ -38,6 +40,7 @@ migrate = Migrate(app, db)
 
 
 engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
+
 
 
 # Database Models
@@ -143,6 +146,21 @@ class ClientRate(db.Model):
     comments = db.Column(db.String(255))
 
 
+class UserRevenue(db.Model):
+    __tablename__ = 'user_revenue'
+    id = db.Column(db.Integer, primary_key=True)
+    user_name = db.Column(db.String(255), nullable=False)
+    revenue_generating_entity = db.Column(db.String(255), nullable=False)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'user_name': self.user_name,
+            'revenue_generating_entity': self.revenue_generating_entity
+        }
+
+
+
 class EODDump(db.Model):
     __tablename__ = 'eod_dump'
     Date = db.Column(db.Date)
@@ -179,6 +197,18 @@ class EODDump(db.Model):
     # Qty_2 = db.Column(db.Integer)
     Taken_To_Revenue = db.Column(db.Boolean)
     Taken_To_Revenue_Date = db.Column(db.DateTime, nullable=True)
+    
+    user_revenue = relationship(
+        "UserRevenue",
+        primaryjoin=foreign(func.lower(User_Name)) == remote(func.lower(UserRevenue.user_name)),
+        viewonly=True
+    )
+
+    work_cat = relationship(
+        "WorkCat",
+        primaryjoin=foreign(Item_Mst_ID) == remote(WorkCat.Rate_Code),
+        viewonly=True
+    )
 
     def to_dict(self):
         result = {column.name: getattr(self, column.name) for column in self.__table__.columns}
@@ -186,19 +216,9 @@ class EODDump(db.Model):
         return result
         # return {column.name: getattr(self, column.name) for column in self.__table__.columns}
 
+        
 
-class UserRevenue(db.Model):
-    __tablename__ = 'user_revenue'
-    id = db.Column(db.Integer, primary_key=True)
-    user_name = db.Column(db.String(255), nullable=False)
-    revenue_generating_entity = db.Column(db.String(255), nullable=False)
 
-    def to_dict(self):
-        return {
-            'id': self.id,
-            'user_name': self.user_name,
-            'revenue_generating_entity': self.revenue_generating_entity
-        }
 
 
 
@@ -217,7 +237,15 @@ def role_required(roles):
     return wrapper
 
 
+
+
+
+
+
+
 @app.route('/api/register', methods=['POST'])
+@role_required(['admin'])
+@jwt_required()
 def register_user():
     data = request.json
     username = data.get('username')
@@ -244,11 +272,77 @@ def register_user():
     return jsonify({'message': 'User registered successfully'}), 201
 
 
+
 @app.route('/api/logout', methods=['POST'])
 @jwt_required()
 def logout():
     return jsonify({'message': 'Logout successful'}), 200
 
+def calculate_cost(seed, eod_item):
+    ooh_rates = SubcontractorRate.query.filter_by(rate_code='OOH001').first()
+    
+    user_rev = UserRevenue.query.filter(func.lower(UserRevenue.user_name) == func.lower(eod_item.User_Name)).first()
+    if not user_rev:
+        return {"seed": seed, "error": f"User {eod_item.User_Name} not found in UserRevenue table"}
+    
+    revenue_generating_entity = user_rev.revenue_generating_entity
+
+    if revenue_generating_entity.upper() == "SET":
+        return {
+            "cost": 0,
+        }
+    
+    subcontractor_rate = SubcontractorRate.query.filter_by(rate_code=eod_item.Item_Mst_ID).first()
+    if not subcontractor_rate:
+        return {"seed": seed, "error": f"Rate not found for Item_Mst_ID: {eod_item.Item_Mst_ID}"}
+    
+    rate = getattr(subcontractor_rate, revenue_generating_entity.lower(), None)
+    if rate is None:
+        return {"seed": seed, "error": f"Rate not found for entity: {revenue_generating_entity}"}
+    
+    base_cost = float(eod_item.Qty) * float(rate)
+    
+    is_weekend = False
+    weekend_rate = 0
+    if eod_item.Date and eod_item.Date.weekday() >= 5:
+        is_weekend = True
+        weekend_rate = getattr(ooh_rates, revenue_generating_entity.lower(), 0)
+        if weekend_rate:
+            base_cost *= (1 + float(weekend_rate) / 100)
+    
+    return {
+        "cost": base_cost + float(weekend_rate) if weekend_rate else base_cost,
+    }
+
+
+
+
+@app.route('/api/pn', methods=['GET'])
+@jwt_required()
+@role_required(['admin', 'editor', 'viewer'])
+def get_pn():
+    filters = request.args.to_dict()
+
+    limit = int(request.args.get('limit', 100))  # Default to 100 rows
+    page = int(request.args.get('page', 1))  # Default to page 1
+
+    query = PnRaw.query
+
+    for key, value in filters.items():
+        if hasattr(PnRaw, key):
+            query = query.filter(getattr(PnRaw, key) == value)
+
+    total_records = query.with_entities(func.count()).scalar()
+    data = query.offset((page - 1) * limit).limit(limit).all()
+
+    response = {
+        'total_records': total_records,
+        'page': page,
+        'per_page': limit,
+        'data': [item.to_dict() for item in data]
+    }
+
+    return jsonify(response)
 
 def send_reset_email(to_email, reset_token):
     
@@ -439,42 +533,6 @@ def login():
     return jsonify({"msg": "Bad username or password"}), 401
 
 
-# @app.route('/api/data', methods=['GET'])
-# @jwt_required()
-# @role_required(['admin', 'editor', 'viewer'])
-# def get_data():
-#     filters = request.args.to_dict()
-
-#     limit = int(request.args.get('limit', 100))  # Default to 100 rows
-#     page = int(request.args.get('page', 1))  # Default to page 1
-
-#     query = EODDump.query
-
-#     # Apply filters to the query
-#     for key, value in filters.items():
-#         if hasattr(EODDump, key):
-#             query = query.filter(getattr(EODDump, key) == value)
-
-#     # Perform join with user_revenue table
-#     query = query.outerjoin(UserRevenue, func.lower(EODDump.User_Name) == func.lower(UserRevenue.user_name))
-
-#     total_records = query.with_entities(func.count()).scalar()
-#     data = query.offset((page - 1) * limit).limit(limit).all()
-
-#     # Generate the response including revenue_generating_entity
-#     response = {
-#         'total_records': total_records,
-#         'page': page,
-#         'per_page': limit,
-#         'data': [{
-#             **item.to_dict(),
-#             'revenue_generating_entity': item.user_revenue.revenue_generating_entity if item.user_revenue else None
-#         } for item in data]
-#     }
-
-#     return jsonify(response)
-
-
 @app.route('/api/data', methods=['GET'])
 @jwt_required()
 @role_required(['admin', 'editor', 'viewer'])
@@ -484,7 +542,13 @@ def get_data():
     limit = int(request.args.get('limit', 100))  # Default to 100 rows
     page = int(request.args.get('page', 1))  # Default to page 1
 
-    query = EODDump.query
+    query = EODDump.query.outerjoin(
+        UserRevenue,
+        func.lower(UserRevenue.user_name) == func.lower(EODDump.User_Name)
+    ).outerjoin(
+        WorkCat,
+        EODDump.Item_Mst_ID == WorkCat.Rate_Code
+    )
 
     for key, value in filters.items():
         if hasattr(EODDump, key):
@@ -493,14 +557,107 @@ def get_data():
     total_records = query.with_entities(func.count()).scalar()
     data = query.offset((page - 1) * limit).limit(limit).all()
 
+    response_data = []
+    for item in data:
+        item_dict = item.to_dict()
+        user_revenue = item.user_revenue
+        work_cat = item.work_cat
+
+        if user_revenue:
+            item_dict['revenue_generating_entity'] = user_revenue.revenue_generating_entity
+        else:
+            item_dict['revenue_generating_entity'] = None
+        if work_cat:
+            item_dict['category'] = work_cat.Category
+        else:
+            item_dict['category'] = None    
+
+        response_data.append(item_dict)
+
     response = {
         'total_records': total_records,
         'page': page,
         'per_page': limit,
-        'data': [item.to_dict() for item in data]
+        'data': response_data
     }
 
     return jsonify(response)
+
+
+@app.route('/api/data/revenue', methods=['GET'])
+@jwt_required()
+@role_required(['admin', 'editor', 'viewer'])
+def get_revenue_data():
+
+    try:
+        filters = request.args.to_dict()
+
+        limit = int(request.args.get('limit', 100))  # Default to 100 rows
+        page = int(request.args.get('page', 1))  # Default to page 1
+
+        query = EODDump.query.outerjoin(
+            UserRevenue,
+            func.lower(UserRevenue.user_name) == func.lower(EODDump.User_Name)
+        ).outerjoin(
+            WorkCat,
+            EODDump.Item_Mst_ID == WorkCat.Rate_Code
+        ).outerjoin(
+            ClientRate,
+            EODDump.Item_Mst_ID == ClientRate.rate_code
+        )
+
+        for key, value in filters.items():
+            if hasattr(EODDump, key):
+                query = query.filter(getattr(EODDump, key) == value)
+
+        total_records = query.with_entities(func.count()).scalar()
+        data = query.offset((page - 1) * limit).limit(limit).all()
+
+        response_data = []
+        for item in data:
+            item_dict = item.to_dict()
+            user_revenue = item.user_revenue
+            work_cat = item.work_cat
+
+            if user_revenue:
+                item_dict['revenue_generating_entity'] = user_revenue.revenue_generating_entity
+            else:
+                item_dict['revenue_generating_entity'] = None
+            if work_cat:
+                item_dict['category'] = work_cat.Category
+            else:
+                item_dict['category'] = None    
+
+            response_data.append(item_dict)
+
+            # Calculate revenue
+            revenue = db.session.query(
+                func.sum(EODDump.Qty * ClientRate.rates)
+            ).filter(
+                EODDump.Seed == item.Seed
+            ).scalar()
+            
+            item_dict['revenue'] = revenue if revenue is not None else 0
+            
+            # Calculate cost
+            cost_data = calculate_cost(item.Seed, item)
+            item_dict.update(cost_data)
+            
+            response_data.append(item_dict)
+            
+
+        response = {
+            'total_records': total_records,
+            'page': page,
+            'per_page': limit,
+            'data': response_data
+        }
+
+        return jsonify(response)
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 
 @app.route('/api/manage_user', methods=['POST'])
@@ -515,6 +672,83 @@ def manage_user():
         db.session.commit()
         return jsonify({"success": True, "message": "User updated successfully"})
     return jsonify({"success": False, "message": "User not found"}), 404
+
+
+
+# Read a single user by ID
+@app.route('/api/users/<int:id>', methods=['GET'])
+@jwt_required()
+@role_required(['admin'])
+def get_user(id):
+    user = User.query.get(id)
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    return jsonify({
+        'id': user.id,
+        'username': user.username,
+        'email_id': user.email_id,
+        'phone_no': user.phone_no,
+        'role': user.role,
+        'can_edit': user.can_edit
+    }), 200
+
+
+# Update a user
+@app.route('/api/users/<int:id>', methods=['PUT'])
+@jwt_required()
+@role_required(['admin'])
+def update_user(id):
+    user = User.query.get(id)
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+
+    data = request.json
+    if 'username' in data:
+        user.username = data['username']
+    if 'password' in data:
+        user.password = generate_password_hash(data['password'], method='sha256')
+    if 'email_id' in data:
+        user.email_id = data['email_id']
+    if 'phone_no' in data:
+        user.phone_no = data['phone_no']
+    if 'role' in data:
+        user.role = data['role']
+    if 'can_edit' in data:
+        user.can_edit = data['can_edit']
+
+    db.session.commit()
+    return jsonify({"message": "User updated successfully"}), 200
+
+
+# Delete a user
+@app.route('/api/users/<int:id>', methods=['DELETE'])
+@jwt_required()
+def delete_user(id):
+    user = User.query.get(id)
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+
+    db.session.delete(user)
+    db.session.commit()
+    return jsonify({"message": "User deleted successfully"}), 200
+
+
+
+@app.route('/api/users', methods=['GET'])
+@jwt_required()
+@role_required(['admin'])
+def get_users():
+    users = User.query.all()
+    return jsonify([{
+        'id': user.id,
+        'username': user.username,
+        'email_id': user.email_id,
+        'phone_no': user.phone_no,
+        'role': user.role,
+        'can_edit': user.can_edit
+    } for user in users]), 200
+
+
 
 
 @app.route('/api/update_revenue_status', methods=['POST'])
@@ -541,137 +775,134 @@ def update_revenue_status():
 
 
 
-@app.route('/api/get_revenue', methods=['POST'])
-@jwt_required()
-@role_required(['admin', 'viewer', 'editor'])
-def get_revenue():
-    user = User.query.filter_by(username=get_jwt_identity()).first()
-    print(user)
+# @app.route('/api/get_revenue', methods=['POST'])
+# @jwt_required()
+# @role_required(['admin', 'viewer', 'editor'])
+# def get_revenue():
+#     user = User.query.filter_by(username=get_jwt_identity()).first()
+#     print(user)
 
-    data = request.json
-    print("Received data:", data)  # Debug statement
-    seeds = data.get('Seeds')
+#     data = request.json
+#     print("Received data:", data)  # Debug statement
+#     seeds = data.get('Seeds')
     
-    if not seeds or not isinstance(seeds, list):
-        return jsonify({"success": False, "message": "Seeds parameter is required and must be a list"}), 400
+#     if not seeds or not isinstance(seeds, list):
+#         return jsonify({"success": False, "message": "Seeds parameter is required and must be a list"}), 400
     
-    try:
-        revenue_results = {}
-        for seed in seeds:
-            total_revenue = db.session.query(
-                db.func.sum(EODDump.Qty * ClientRate.rates)
-            ).join(
-                ClientRate, EODDump.Item_Mst_ID == ClientRate.rate_code
-            ).filter(
-                EODDump.Seed == seed
-            ).scalar()
+#     try:
+#         revenue_results = {}
+#         for seed in seeds:
+#             total_revenue = db.session.query(
+#                 db.func.sum(EODDump.Qty * ClientRate.rates)
+#             ).join(
+#                 ClientRate, EODDump.Item_Mst_ID == ClientRate.rate_code
+#             ).filter(
+#                 EODDump.Seed == seed
+#             ).scalar()
             
-            revenue_results[seed] = total_revenue if total_revenue is not None else 0
+#             revenue_results[seed] = total_revenue if total_revenue is not None else 0
         
-        return jsonify({"success": True, "revenue": revenue_results})
+#         return jsonify({"success": True, "revenue": revenue_results})
         
-    except Exception as e:
-        return jsonify({"success": False, "message": str(e)}), 500
+#     except Exception as e:
+#         return jsonify({"success": False, "message": str(e)}), 500
 
 
 
 
 
 
-@app.route('/api/calculate_cost', methods=['POST'])
-@jwt_required()
-@role_required(['admin', 'editor'])
-def calculate_cost():
-    data = request.json
-    if not data or 'seeds' not in data:
-        return jsonify({"error": "Invalid input. 'seeds' is required."}), 400
+# @app.route('/api/calculate_cost', methods=['POST'])
+# @jwt_required()
+# @role_required(['admin', 'editor'])
+# def calculate_cost():
+#     data = request.json
+#     if not data or 'seeds' not in data:
+#         return jsonify({"error": "Invalid input. 'seeds' is required."}), 400
 
-    seeds = data['seeds']
+#     seeds = data['seeds']
     
-    ooh_rates = SubcontractorRate.query.filter_by(rate_code='OOH001').first()
+#     ooh_rates = SubcontractorRate.query.filter_by(rate_code='OOH001').first()
     
-    results = []
-    for seed in seeds:
-        eod_item = EODDump.query.filter_by(Seed=seed).first()
-        if not eod_item:
-            results.append({"seed": seed, "error": "EOD item not found"})
-            continue
+#     results = []
+#     for seed in seeds:
+#         eod_item = EODDump.query.filter_by(Seed=seed).first()
+#         if not eod_item:
+#             results.append({"seed": seed, "error": "EOD item not found"})
+#             continue
 
-        # Get revenue_generating_entity from user_revenue table
-        user_rev = UserRevenue.query.filter(func.lower(UserRevenue.user_name) == func.lower(eod_item.User_Name)).first()
-        if not user_rev:
-            results.append({
-                "seed": seed,
-                "error": f"User {eod_item.User_Name} not found in UserRevenue table"
-            })
-            continue
+#         # Get revenue_generating_entity from user_revenue table
+#         user_rev = UserRevenue.query.filter(func.lower(UserRevenue.user_name) == func.lower(eod_item.User_Name)).first()
+#         if not user_rev:
+#             results.append({
+#                 "seed": seed,
+#                 "error": f"User {eod_item.User_Name} not found in UserRevenue table"
+#             })
+#             continue
         
-        revenue_generating_entity = user_rev.revenue_generating_entity
+#         revenue_generating_entity = user_rev.revenue_generating_entity
 
-        # If revenue_generating_entity is "SET", cost is 0
-        if revenue_generating_entity.upper() == "SET":
-            results.append({
-                "seed": seed,
-                "date": eod_item.Date.strftime('%Y-%m-%d') if eod_item.Date else None,
-                "item_mst_id": eod_item.Item_Mst_ID,
-                "qty": eod_item.Qty,
-                "username": eod_item.User_Name,
-                "revenue_generating_entity": revenue_generating_entity,
-                "rate": 0,
-                "cost": 0,
-                "is_weekend": False,
-                "weekend_rate": 0
-            })
-            continue
+#         # If revenue_generating_entity is "SET", cost is 0
+#         if revenue_generating_entity.upper() == "SET":
+#             results.append({
+#                 "seed": seed,
+#                 "date": eod_item.Date.strftime('%Y-%m-%d') if eod_item.Date else None,
+#                 "item_mst_id": eod_item.Item_Mst_ID,
+#                 "qty": eod_item.Qty,
+#                 "username": eod_item.User_Name,
+#                 "revenue_generating_entity": revenue_generating_entity,
+#                 "rate": 0,
+#                 "cost": 0,
+#                 "is_weekend": False,
+#                 "weekend_rate": 0
+#             })
+#             continue
 
-        # Get rate from subcontractor_rate table
-        subcontractor_rate = SubcontractorRate.query.filter_by(rate_code=eod_item.Item_Mst_ID).first()
-        if not subcontractor_rate:
-            results.append({
-                "seed": seed,
-                "error": f"Rate not found for Item_Mst_ID: {eod_item.Item_Mst_ID}"
-            })
-            continue
+#         # Get rate from subcontractor_rate table
+#         subcontractor_rate = SubcontractorRate.query.filter_by(rate_code=eod_item.Item_Mst_ID).first()
+#         if not subcontractor_rate:
+#             results.append({
+#                 "seed": seed,
+#                 "error": f"Rate not found for Item_Mst_ID: {eod_item.Item_Mst_ID}"
+#             })
+#             continue
         
-        # Get the rate for the specific revenue_generating_entity
-        rate = getattr(subcontractor_rate, revenue_generating_entity.lower(), None)
-        if rate is None:
-            results.append({
-                "seed": seed,
-                "error": f"Rate not found for entity: {revenue_generating_entity}"
-            })
-            continue
+#         # Get the rate for the specific revenue_generating_entity
+#         rate = getattr(subcontractor_rate, revenue_generating_entity.lower(), None)
+#         if rate is None:
+#             results.append({
+#                 "seed": seed,
+#                 "error": f"Rate not found for entity: {revenue_generating_entity}"
+#             })
+#             continue
         
-        # Calculate base cost
-        base_cost = float(eod_item.Qty) * float(rate)
+#         # Calculate base cost
+#         base_cost = float(eod_item.Qty) * float(rate)
         
-        # Check if the date is a weekend
-        is_weekend = False
-        weekend_rate = 0
-        if eod_item.Date:
-            if eod_item.Date.weekday() >= 5:  # 5 is Saturday, 6 is Sunday
-                is_weekend = True
-                weekend_rate = getattr(ooh_rates, revenue_generating_entity.lower(), 0)
-                if weekend_rate:
-                    base_cost *= (1 + float(weekend_rate) / 100)  # Increase by percentage
+#         # Check if the date is a weekend
+#         is_weekend = False
+#         weekend_rate = 0
+#         if eod_item.Date:
+#             if eod_item.Date.weekday() >= 5:  # 5 is Saturday, 6 is Sunday
+#                 is_weekend = True
+#                 weekend_rate = getattr(ooh_rates, revenue_generating_entity.lower(), 0)
+#                 if weekend_rate:
+#                     base_cost *= (1 + float(weekend_rate) / 100)  # Increase by percentage
 
-        results.append({
-            "seed": seed,
-            "date": eod_item.Date.strftime('%Y-%m-%d') if eod_item.Date else None,
-            "item_mst_id": eod_item.Item_Mst_ID,
-            "qty": eod_item.Qty,
-            "username": eod_item.User_Name,
-            "revenue_generating_entity": revenue_generating_entity,
-            "rate": float(rate),
-            "cost": base_cost,
-            "is_weekend": is_weekend,
-            "weekend_rate": float(weekend_rate) if weekend_rate else 0
-        })
+#         results.append({
+#             "seed": seed,
+#             "date": eod_item.Date.strftime('%Y-%m-%d') if eod_item.Date else None,
+#             "item_mst_id": eod_item.Item_Mst_ID,
+#             "qty": eod_item.Qty,
+#             "username": eod_item.User_Name,
+#             "revenue_generating_entity": revenue_generating_entity,
+#             "rate": float(rate),
+#             "cost": base_cost,
+#             "is_weekend": is_weekend,
+#             "weekend_rate": float(weekend_rate) if weekend_rate else 0
+#         })
     
-    return jsonify(results)
-
-
-
+#     return jsonify(results)
 
 
 @app.route('/api/upload', methods=['POST'])
@@ -696,6 +927,35 @@ def upload_file():
         return jsonify({'message': 'File uploaded and data stored successfully'}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/unique_values', methods=['GET'])
+@jwt_required()
+def get_unique_values():
+    table_name = request.args.get('table')
+    column_name = request.args.get('column')
+
+    if not table_name or not column_name:
+        return jsonify({"error": "Both 'table' and 'column' parameters are required"}), 400
+
+    try:
+        # Reflect the table from the database
+        metadata = MetaData()
+        table = Table(table_name, metadata, autoload_with=db.engine)
+
+        # Check if the column exists in the table
+        if column_name not in table.columns:
+            return jsonify({"error": f"Column '{column_name}' does not exist in table '{table_name}'"}), 404
+
+        # Query for unique values
+        query = select(table.columns[column_name]).distinct()
+        result = db.session.execute(query)
+        unique_values = [value[0] for value in result.fetchall()]
+
+        return jsonify({"unique_values": unique_values})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 if __name__ == '__main__':
